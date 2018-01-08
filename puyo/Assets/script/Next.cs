@@ -9,6 +9,7 @@ namespace next_field {
 
 		public void init () {
 			m_puyopuyo = new puyopuyo ();
+			m_puyopuyo.init ();
 			update_next ();
 		}
 
