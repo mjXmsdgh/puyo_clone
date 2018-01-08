@@ -37,7 +37,7 @@ namespace game_field {
 		}
 
 		public void next2temp () {
-			m_temp_puyo.copy (get_next ());
+			m_temp_puyo.copy_color (get_next ());
 			m_temp_puyo.set_position (0, 3, 10);
 			m_temp_puyo.set_position (1, 3, 11);
 

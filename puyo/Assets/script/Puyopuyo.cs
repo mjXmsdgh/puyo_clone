@@ -46,7 +46,7 @@ namespace puyopuyo_space {
 		//---------
 		//copy
 		//---------
-		public void copy (puyopuyo data) {
+		public void copy_color (puyopuyo data) {
 			for (int i = 0; i < 2; i++) {
 				set_color (i, data.get_color (i));
 			}
