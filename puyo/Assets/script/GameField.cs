@@ -67,7 +67,9 @@ namespace game_field {
 		public int get_value (int input_i, int input_j) {
 			return m_Grid[input_i, input_j];
 		}
-
+		public void set_value (int i, int j, int value) {
+			m_Grid[i, j] = value;
+		}
 		//--------------------
 		//next
 		//--------------------
@@ -105,7 +107,6 @@ namespace game_field {
 			}
 
 			//移動
-			//if ((isRange (new_pos[0]) == true) && (isRange (new_pos[1]) == true)) {
 			if ((isCheck (new_pos[0]) == true) && (isCheck (new_pos[1]) == true)) {
 				for (int i = 0; i < 2; i++) {
 					m_temp_puyo.set_position (i, new_pos[i].get_x (), new_pos[i].get_y ());
@@ -149,7 +150,6 @@ namespace game_field {
 			new_pos[1].set (new_pos_x + m_temp_puyo.get_position_x (0), new_pos_y + m_temp_puyo.get_position_y (0));
 
 			//範囲内なら回転
-			//if ((isRange (new_pos[0]) == true) && (isRange (new_pos[1]) == true)) {
 			if ((isCheck (new_pos[0]) == true) && (isCheck (new_pos[1]) == true)) {
 				for (int i = 0; i < 2; i++) {
 					m_temp_puyo.set_position (i, new_pos[i].get_x (), new_pos[i].get_y ());

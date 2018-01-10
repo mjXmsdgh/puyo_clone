@@ -22,7 +22,7 @@ namespace game_field {
 		void init_grid () {
 			for (int i = 0; i < GetWidth (); i++) {
 				for (int j = 0; j < GetHeight (); j++) {
-					m_Grid[i, j] = 0;
+					set_value (i, j, 0);
 				}
 			}
 		}
