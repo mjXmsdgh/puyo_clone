@@ -89,31 +89,22 @@ namespace game_field {
 		//--------------------
 		public bool move (int move_x, int move_y) {
 
-			Point[] new_pos = new Point[2];
-
-			for (int i = 0; i < 2; i++) {
-
-				//現在の位置
-				Point tempPos = new Point (0, 0);
-				tempPos.set (m_temp_puyo.get_position_x (i), m_temp_puyo.get_position_y (i));
-
-				//移動量
-				Point movePos = new Point (0, 0);
-				movePos.set (move_x, move_y);
-
-				//移動後の位置
-				new_pos[i] = new Point (0, 0);
-				new_pos[i] = tempPos + movePos;
-			}
+			//移動前のpuyoを保存
+			puyopuyo prev_puyo = new puyopuyo ();
+			prev_puyo.init ();
+			prev_puyo.copy (m_temp_puyo);
 
 			//移動
-			if ((isCheck (new_pos[0]) == true) && (isCheck (new_pos[1]) == true)) {
-				for (int i = 0; i < 2; i++) {
-					m_temp_puyo.set_position (i, new_pos[i].get_x (), new_pos[i].get_y ());
-				}
+			m_temp_puyo.move (new Point (move_x, move_y));
+
+			if ((isCheck (m_temp_puyo.get_position (0)) == true) && (isCheck (m_temp_puyo.get_position (1)) == true)) {
+				//範囲内ならなにもしない
 				return true;
+			} else {
+				//範囲外ならもとに戻す
+				m_temp_puyo.copy (prev_puyo);
+				return false;
 			}
-			return false;
 		}
 
 		//--------------------

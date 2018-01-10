@@ -43,6 +43,10 @@ namespace puyopuyo_space {
 			return puyo_pos[index].get_y ();
 		}
 
+		public Point get_position (int index) {
+			return puyo_pos[index];
+		}
+
 		//---------
 		//copy
 		//---------
@@ -50,6 +54,37 @@ namespace puyopuyo_space {
 			for (int i = 0; i < 2; i++) {
 				set_color (i, data.get_color (i));
 			}
+		}
+
+		public void copy_position (puyopuyo data) {
+			for (int i = 0; i < 2; i++) {
+				set_position (i, data.get_position_x (i), data.get_position_y (i));
+
+			}
+		}
+
+		public void copy (puyopuyo data) {
+			copy_color (data);
+			copy_position (data);
+		}
+
+		//---------
+		//move
+		//---------
+		public void move (Point move) {
+			for (int i = 0; i < 2; i++) {
+				int pos_x = get_position_x (i);
+				int pos_y = get_position_y (i);
+
+				set_position (i, pos_x + move.get_x (), pos_y + move.get_y ());
+			}
+		}
+
+		//---------
+		//rotate
+		//---------
+		public void rotate (bool isRight) {
+
 		}
 	}
 }
