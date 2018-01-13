@@ -112,39 +112,21 @@ namespace game_field {
 		//--------------------
 		public void rotate (bool isRight) {
 
-			Point[] new_pos = new Point[2];
-
-			//回転方向
-			int rot = -1;
-
-			if (isRight == true) {
-				rot = 1;
-			}
+			//移動前のpuyoを保存
+			puyopuyo prev_puyo = new puyopuyo ();
+			prev_puyo.init ();
+			prev_puyo.copy (m_temp_puyo);
 
 			//回転
-			//x=x*cos()-y*sin()
-			//y=x*sin()+y*cos()
+			m_temp_puyo.rotate (isRight);
 
-			//index1の位置を平行移動
-			int pos_x = m_temp_puyo.get_position_x (1) - m_temp_puyo.get_position_x (0);
-			int pos_y = m_temp_puyo.get_position_y (1) - m_temp_puyo.get_position_y (0);
-
-			//回転
-			int new_pos_x = (int) Math.Round (pos_x * Math.Cos (rot * Math.PI / 2) - pos_y * Math.Sin (rot * Math.PI / 2));
-			int new_pos_y = (int) Math.Round (pos_x * Math.Sin (rot * Math.PI / 2) + pos_y * Math.Cos (rot * Math.PI / 2));
-
-			//移動後の位置を設定
-			new_pos[0] = new Point (0, 0);
-			new_pos[0].set (m_temp_puyo.get_position_x (0), m_temp_puyo.get_position_y (0));
-
-			new_pos[1] = new Point (0, 0);
-			new_pos[1].set (new_pos_x + m_temp_puyo.get_position_x (0), new_pos_y + m_temp_puyo.get_position_y (0));
-
-			//範囲内なら回転
-			if ((isCheck (new_pos[0]) == true) && (isCheck (new_pos[1]) == true)) {
-				for (int i = 0; i < 2; i++) {
-					m_temp_puyo.set_position (i, new_pos[i].get_x (), new_pos[i].get_y ());
-				}
+			if ((isCheck (m_temp_puyo.get_position (0)) == true) && (isCheck (m_temp_puyo.get_position (1)) == true)) {
+				//範囲内ならなにもしない
+				return;
+			} else {
+				//範囲外ならもとに戻す
+				m_temp_puyo.copy (prev_puyo);
+				return;
 			}
 		}
 		//--------------------

@@ -85,6 +85,21 @@ namespace puyopuyo_space {
 		//---------
 		public void rotate (bool isRight) {
 
+			int rot = -1;
+
+			if (isRight == true) {
+				rot = 1;
+			}
+
+			//index1の位置を平行移動
+			int pos_x = get_position_x (1) - get_position_x (0);
+			int pos_y = get_position_y (1) - get_position_y (0);
+
+			//回転
+			int new_pos_x = (int) Math.Round (pos_x * Math.Cos (rot * Math.PI / 2) - pos_y * Math.Sin (rot * Math.PI / 2));
+			int new_pos_y = (int) Math.Round (pos_x * Math.Sin (rot * Math.PI / 2) + pos_y * Math.Cos (rot * Math.PI / 2));
+
+			set_position (1, new_pos_x + get_position_x (0), new_pos_y + get_position_y (0));
 		}
 	}
 }
