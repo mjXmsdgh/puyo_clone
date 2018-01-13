@@ -43,6 +43,10 @@ namespace puyopuyo_space {
 			return puyo_pos[index].get_y ();
 		}
 
+		public Point get_position (int index) {
+			return puyo_pos[index];
+		}
+
 		//---------
 		//copy
 		//---------
@@ -50,6 +54,52 @@ namespace puyopuyo_space {
 			for (int i = 0; i < 2; i++) {
 				set_color (i, data.get_color (i));
 			}
+		}
+
+		public void copy_position (puyopuyo data) {
+			for (int i = 0; i < 2; i++) {
+				set_position (i, data.get_position_x (i), data.get_position_y (i));
+
+			}
+		}
+
+		public void copy (puyopuyo data) {
+			copy_color (data);
+			copy_position (data);
+		}
+
+		//---------
+		//move
+		//---------
+		public void move (Point move) {
+			for (int i = 0; i < 2; i++) {
+				int pos_x = get_position_x (i);
+				int pos_y = get_position_y (i);
+
+				set_position (i, pos_x + move.get_x (), pos_y + move.get_y ());
+			}
+		}
+
+		//---------
+		//rotate
+		//---------
+		public void rotate (bool isRight) {
+
+			int rot = -1;
+
+			if (isRight == true) {
+				rot = 1;
+			}
+
+			//index1の位置を平行移動
+			int pos_x = get_position_x (1) - get_position_x (0);
+			int pos_y = get_position_y (1) - get_position_y (0);
+
+			//回転
+			int new_pos_x = (int) Math.Round (pos_x * Math.Cos (rot * Math.PI / 2) - pos_y * Math.Sin (rot * Math.PI / 2));
+			int new_pos_y = (int) Math.Round (pos_x * Math.Sin (rot * Math.PI / 2) + pos_y * Math.Cos (rot * Math.PI / 2));
+
+			set_position (1, new_pos_x + get_position_x (0), new_pos_y + get_position_y (0));
 		}
 	}
 }
