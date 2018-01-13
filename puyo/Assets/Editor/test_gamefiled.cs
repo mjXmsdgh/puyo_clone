@@ -95,7 +95,81 @@ public class test_gamefiled {
 
 	[Test]
 	public void test_move () {
+		GameField test_target = new GameField ();
+		test_target.init ();
 
+		test_target.get_temp ().set_position (0, 3, 3);
+		test_target.get_temp ().set_position (1, 4, 3);
+
+		//move
+		move_ok (ref test_target, 3, 3, 4, 3);
+
+		//don't move
+		move_ng (ref test_target, 3, 3, 4, 3);
+	}
+
+	void move_ok (ref GameField test_target, int zero_x, int zero_y, int one_x, int one_y) {
+		//up
+		init_pos (ref test_target, zero_x, zero_y, one_x, one_y);
+		test_target.move (0, 1);
+		check (ref test_target, zero_x, zero_y, one_x, one_y, 0, 1);
+
+		//down
+		init_pos (ref test_target, zero_x, zero_y, one_x, one_y);
+		test_target.move (0, -1);
+		check (ref test_target, zero_x, zero_y, one_x, one_y, 0, -1);
+
+		//left
+		init_pos (ref test_target, zero_x, zero_y, one_x, one_y);
+		test_target.move (-1, 0);
+		check (ref test_target, zero_x, zero_y, one_x, one_y, -1, 0);
+
+		//rigth
+		init_pos (ref test_target, zero_x, zero_y, one_x, one_y);
+		test_target.move (1, 0);
+		check (ref test_target, zero_x, zero_y, one_x, one_y, 1, 0);
+	}
+
+	void move_ng (ref GameField test_target, int zero_x, int zero_y, int one_x, int one_y) {
+
+		//ぷよ
+		test_target.set_value (zero_x, zero_y - 1, 1);
+		test_target.set_value (one_y + 1, one_y, 1);
+		test_target.set_value (zero_x, zero_y + 1, 1);
+		test_target.set_value (zero_x - 1, zero_y, 1);
+
+		//up
+		init_pos (ref test_target, zero_x, zero_y, one_x, one_y);
+		test_target.move (0, 1);
+		check (ref test_target, zero_x, zero_y, one_x, one_y, 0, 0);
+
+		//down
+		init_pos (ref test_target, zero_x, zero_y, one_x, one_y);
+		test_target.move (0, -1);
+		check (ref test_target, zero_x, zero_y, one_x, one_y, 0, 0);
+
+		//left
+		init_pos (ref test_target, zero_x, zero_y, one_x, one_y);
+		test_target.move (-1, 0);
+		check (ref test_target, zero_x, zero_y, one_x, one_y, 0, 0);
+
+		//rigth
+		init_pos (ref test_target, zero_x, zero_y, one_x, one_y);
+		test_target.move (1, 0);
+		check (ref test_target, zero_x, zero_y, one_x, one_y, 0, 0);
+	}
+
+	void init_pos (ref GameField test_target, int zero_x, int zero_y, int one_x, int one_y) {
+		test_target.get_temp ().set_position (0, zero_x, zero_y);
+		test_target.get_temp ().set_position (1, one_x, one_y);
+	}
+
+	void check (ref GameField test_target, int zero_x, int zero_y, int one_x, int one_y, int move_x, int move_y) {
+		Assert.AreEqual (zero_x + move_x, test_target.get_temp ().get_position_x (0));
+		Assert.AreEqual (zero_y + move_y, test_target.get_temp ().get_position_y (0));
+
+		Assert.AreEqual (one_x + move_x, test_target.get_temp ().get_position_x (1));
+		Assert.AreEqual (one_y + move_y, test_target.get_temp ().get_position_y (1));
 	}
 
 	[Test]
