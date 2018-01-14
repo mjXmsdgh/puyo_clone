@@ -98,61 +98,48 @@ public class test_gamefiled {
 		GameField test_target = new GameField ();
 		test_target.init ();
 
-		test_target.get_temp ().set_position (0, 3, 3);
-		test_target.get_temp ().set_position (1, 4, 3);
-
 		//move
-		move_ok (ref test_target, 3, 3, 4, 3);
+		for (int i = 1; i < test_target.GetWidth () - 2; i++) {
+			for (int j = 1; j < test_target.GetHeight () - 1; j++) {
+
+				int[, ] base_pos = new int[, ] { { i, j }, { i + 1, j } };
+				move_ok (ref test_target, base_pos);
+			}
+		}
 
 		//don't move
-		move_ng (ref test_target, 3, 3, 4, 3);
+		//move_ng (ref test_target, 3, 3, 4, 3);
 	}
 
-	void move_ok (ref GameField test_target, int zero_x, int zero_y, int one_x, int one_y) {
-
-		int[, ] test_data = new int[, ] { { 0, 1 }, { 0, -1 }, {-1, 0 }, { 1, 0 } };
+	void move_ok (ref GameField test_target, int[, ] base_pos) {
+		int[, ] data = new int[, ] { { 0, 1 }, { 0, -1 }, {-1, 0 }, { 1, 0 } };
 
 		for (int i = 0; i < 4; i++) {
-			init_pos (ref test_target, zero_x, zero_y, one_x, one_y);
-			test_target.move (test_data[i, 0], test_data[i, 1]);
-			check (ref test_target, zero_x, zero_y, one_x, one_y, test_data[i, 0], test_data[i, 1]);
+			int[] move_pos = { data[i, 0], data[i, 1] };
+			int[] moved_pos = { data[i, 0], data[i, 1] };
+
+			_test_move (ref test_target, base_pos, move_pos, moved_pos);
 		}
 	}
 
-	void move_ng (ref GameField test_target, int zero_x, int zero_y, int one_x, int one_y) {
+	void _test_move (ref GameField test_target, int[, ] base_pos, int[] move_pos, int[] moved_pos) {
+		//設定
+		test_target.get_temp ().set_position (0, base_pos[0, 0], base_pos[0, 1]);
+		test_target.get_temp ().set_position (1, base_pos[1, 0], base_pos[1, 1]);
 
-		//ぷよ
-		test_target.set_value (zero_x, zero_y - 1, 1);
-		test_target.set_value (one_y + 1, one_y, 1);
-		test_target.set_value (zero_x, zero_y + 1, 1);
-		test_target.set_value (zero_x - 1, zero_y, 1);
+		//移動
+		test_target.move (move_pos[0], move_pos[1]);
 
-		int[, ] test_data = new int[, ] { { 0, 1 }, { 0, -1 }, {-1, 0 }, { 1, 0 } };
+		//テスト
+		Assert.AreEqual (base_pos[0, 0] + moved_pos[0], test_target.get_temp ().get_position_x (0));
+		Assert.AreEqual (base_pos[0, 1] + moved_pos[1], test_target.get_temp ().get_position_y (0));
 
-		for (int i = 0; i < 4; i++) {
-			init_pos (ref test_target, zero_x, zero_y, one_x, one_y);
-			test_target.move (test_data[i, 0], test_data[i, 1]);
-			check (ref test_target, zero_x, zero_y, one_x, one_y, 0, 0);
-		}
-	}
-
-	void init_pos (ref GameField test_target, int zero_x, int zero_y, int one_x, int one_y) {
-		test_target.get_temp ().set_position (0, zero_x, zero_y);
-		test_target.get_temp ().set_position (1, one_x, one_y);
-	}
-
-	void check (ref GameField test_target, int zero_x, int zero_y, int one_x, int one_y, int move_x, int move_y) {
-		Assert.AreEqual (zero_x + move_x, test_target.get_temp ().get_position_x (0));
-		Assert.AreEqual (zero_y + move_y, test_target.get_temp ().get_position_y (0));
-
-		Assert.AreEqual (one_x + move_x, test_target.get_temp ().get_position_x (1));
-		Assert.AreEqual (one_y + move_y, test_target.get_temp ().get_position_y (1));
+		Assert.AreEqual (base_pos[1, 0] + moved_pos[0], test_target.get_temp ().get_position_x (1));
+		Assert.AreEqual (base_pos[1, 1] + moved_pos[1], test_target.get_temp ().get_position_y (1));
 	}
 
 	[Test]
-	public void test_rotate () {
-
-	}
+	public void test_rotate () { }
 
 	[Test]
 	public void test_fix () {
