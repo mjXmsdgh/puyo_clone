@@ -109,25 +109,14 @@ public class test_gamefiled {
 	}
 
 	void move_ok (ref GameField test_target, int zero_x, int zero_y, int one_x, int one_y) {
-		//up
-		init_pos (ref test_target, zero_x, zero_y, one_x, one_y);
-		test_target.move (0, 1);
-		check (ref test_target, zero_x, zero_y, one_x, one_y, 0, 1);
 
-		//down
-		init_pos (ref test_target, zero_x, zero_y, one_x, one_y);
-		test_target.move (0, -1);
-		check (ref test_target, zero_x, zero_y, one_x, one_y, 0, -1);
+		int[, ] test_data = new int[, ] { { 0, 1 }, { 0, -1 }, {-1, 0 }, { 1, 0 } };
 
-		//left
-		init_pos (ref test_target, zero_x, zero_y, one_x, one_y);
-		test_target.move (-1, 0);
-		check (ref test_target, zero_x, zero_y, one_x, one_y, -1, 0);
-
-		//rigth
-		init_pos (ref test_target, zero_x, zero_y, one_x, one_y);
-		test_target.move (1, 0);
-		check (ref test_target, zero_x, zero_y, one_x, one_y, 1, 0);
+		for (int i = 0; i < 4; i++) {
+			init_pos (ref test_target, zero_x, zero_y, one_x, one_y);
+			test_target.move (test_data[i, 0], test_data[i, 1]);
+			check (ref test_target, zero_x, zero_y, one_x, one_y, test_data[i, 0], test_data[i, 1]);
+		}
 	}
 
 	void move_ng (ref GameField test_target, int zero_x, int zero_y, int one_x, int one_y) {
@@ -138,25 +127,13 @@ public class test_gamefiled {
 		test_target.set_value (zero_x, zero_y + 1, 1);
 		test_target.set_value (zero_x - 1, zero_y, 1);
 
-		//up
-		init_pos (ref test_target, zero_x, zero_y, one_x, one_y);
-		test_target.move (0, 1);
-		check (ref test_target, zero_x, zero_y, one_x, one_y, 0, 0);
+		int[, ] test_data = new int[, ] { { 0, 1 }, { 0, -1 }, {-1, 0 }, { 1, 0 } };
 
-		//down
-		init_pos (ref test_target, zero_x, zero_y, one_x, one_y);
-		test_target.move (0, -1);
-		check (ref test_target, zero_x, zero_y, one_x, one_y, 0, 0);
-
-		//left
-		init_pos (ref test_target, zero_x, zero_y, one_x, one_y);
-		test_target.move (-1, 0);
-		check (ref test_target, zero_x, zero_y, one_x, one_y, 0, 0);
-
-		//rigth
-		init_pos (ref test_target, zero_x, zero_y, one_x, one_y);
-		test_target.move (1, 0);
-		check (ref test_target, zero_x, zero_y, one_x, one_y, 0, 0);
+		for (int i = 0; i < 4; i++) {
+			init_pos (ref test_target, zero_x, zero_y, one_x, one_y);
+			test_target.move (test_data[i, 0], test_data[i, 1]);
+			check (ref test_target, zero_x, zero_y, one_x, one_y, 0, 0);
+		}
 	}
 
 	void init_pos (ref GameField test_target, int zero_x, int zero_y, int one_x, int one_y) {
