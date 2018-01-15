@@ -98,27 +98,43 @@ public class test_gamefiled {
 		GameField test_target = new GameField ();
 		test_target.init ();
 
-		//move
-		for (int i = 1; i < test_target.GetWidth () - 2; i++) {
-			for (int j = 1; j < test_target.GetHeight () - 1; j++) {
-
-				int[, ] base_pos = new int[, ] { { i, j }, { i + 1, j } };
-				move_ok (ref test_target, base_pos);
-			}
-		}
+		//check range
+		check_range (ref test_target);
 
 		//don't move
-		//move_ng (ref test_target, 3, 3, 4, 3);
 	}
 
-	void move_ok (ref GameField test_target, int[, ] base_pos) {
-		int[, ] data = new int[, ] { { 0, 1 }, { 0, -1 }, {-1, 0 }, { 1, 0 } };
+	void check_range (ref GameField test_target) {
 
-		for (int i = 0; i < 4; i++) {
-			int[] move_pos = { data[i, 0], data[i, 1] };
-			int[] moved_pos = { data[i, 0], data[i, 1] };
+		int[, ] test_data = new int[, ] { { 1, 0 }, { 0, 1 }, {-1, 0 }, { 0, -1 } };
 
-			_test_move (ref test_target, base_pos, move_pos, moved_pos);
+		for (int i = 0; i < test_target.GetWidth (); i++) {
+			for (int j = 0; j < test_target.GetHeight (); j++) {
+
+				if (i >= test_target.GetWidth () - 1) continue;
+
+				for (int k = 0; k < 4; k++) {
+					int[, ] base_pos = new int[, ] { { i, j }, { i + 1, j } };
+					int[] move_pos = new int[] { test_data[k, 0], test_data[k, 1] };
+					int[] moved_pos = new int[] { move_pos[0], move_pos[1] };
+
+					int min_x = base_pos[0, 0] + move_pos[0];
+					int max_x = base_pos[1, 0] + move_pos[0];
+
+					int min_y = base_pos[0, 1] + move_pos[1];
+					int max_y = base_pos[0, 1] + move_pos[1];
+
+					if ((min_x < 0) || (max_x >= test_target.GetWidth ())) {
+						moved_pos[0] = 0;
+					}
+
+					if ((min_y < 0) || (max_y >= test_target.GetHeight ())) {
+						moved_pos[1] = 0;
+					}
+
+					_test_move (ref test_target, base_pos, moved_pos, moved_pos);
+				}
+			}
 		}
 	}
 
