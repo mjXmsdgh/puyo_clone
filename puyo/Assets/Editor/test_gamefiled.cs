@@ -102,6 +102,7 @@ public class test_gamefiled {
 		check_range (ref test_target);
 
 		//don't move
+		check_do_not_move (ref test_target);
 	}
 
 	void check_range (ref GameField test_target) {
@@ -132,10 +133,46 @@ public class test_gamefiled {
 						moved_pos[1] = 0;
 					}
 
-					_test_move (ref test_target, base_pos, moved_pos, moved_pos);
+					_test_move (ref test_target, base_pos, move_pos, moved_pos);
 				}
 			}
 		}
+	}
+
+	void check_do_not_move (ref GameField test_target) {
+
+		test_target.set_value (3, 3, 1);
+
+		int[, ] test_data = new int[, ] { { 1, 0 }, { 0, 1 }, {-1, 0 }, { 0, -1 } };
+
+		for (int i = 0; i < test_target.GetWidth (); i++) {
+			for (int j = 0; j < test_target.GetHeight (); j++) {
+				for (int k = 0; k < 4; k++) {
+					int[, ] base_pos = new int[, ] { { i, j }, { i + 1, j } };
+					int[] move_pos = new int[] { test_data[k, 0], test_data[k, 1] };
+					int[] moved_pos = new int[] { move_pos[0], move_pos[1] };
+
+					int min_x = base_pos[0, 0] + move_pos[0];
+					int max_x = base_pos[1, 0] + move_pos[0];
+
+					int min_y = base_pos[0, 1] + move_pos[1];
+					int max_y = base_pos[0, 1] + move_pos[1];
+
+					if ((min_x == 3) || (max_x == 3)) {
+						moved_pos[0] = 0;
+						moved_pos[1] = 0;
+						_test_move (ref test_target, base_pos, moved_pos, moved_pos);
+					}
+
+					if ((min_y == 3) || (max_y == 3)) {
+						moved_pos[0] = 0;
+						moved_pos[1] = 0;
+						_test_move (ref test_target, base_pos, moved_pos, moved_pos);
+					}
+				}
+			}
+		}
+
 	}
 
 	void _test_move (ref GameField test_target, int[, ] base_pos, int[] move_pos, int[] moved_pos) {
