@@ -112,31 +112,66 @@ public class test_gamefiled {
 		for (int i = 0; i < test_target.GetWidth (); i++) {
 			for (int j = 0; j < test_target.GetHeight (); j++) {
 
-				if (i >= test_target.GetWidth () - 1) continue;
+				int[, ] base_pos = new int[, ] { { i, j }, { i + 1, j } };
 
-				for (int k = 0; k < 4; k++) {
-					int[, ] base_pos = new int[, ] { { i, j }, { i + 1, j } };
-					int[] move_pos = new int[] { test_data[k, 0], test_data[k, 1] };
-					int[] moved_pos = new int[] { move_pos[0], move_pos[1] };
-
-					int min_x = base_pos[0, 0] + move_pos[0];
-					int max_x = base_pos[1, 0] + move_pos[0];
-
-					int min_y = base_pos[0, 1] + move_pos[1];
-					int max_y = base_pos[0, 1] + move_pos[1];
-
-					if ((min_x < 0) || (max_x >= test_target.GetWidth ())) {
-						moved_pos[0] = 0;
-					}
-
-					if ((min_y < 0) || (max_y >= test_target.GetHeight ())) {
-						moved_pos[1] = 0;
-					}
-
-					_test_move (ref test_target, base_pos, move_pos, moved_pos);
-				}
+				//基準座標,上下左右
+				check_base_and_test (ref test_target, base_pos, test_data);
 			}
 		}
+	}
+
+	void check_base_and_test (ref GameField test_target, int[, ] base_pos, int[, ] test_data) {
+		for (int k = 0; k < 4; k++) {
+			int[] move_pos = new int[] { test_data[k, 0], test_data[k, 1] };
+			int[] moved_pos = new int[] { move_pos[0], move_pos[1] };
+
+			if (check_range (test_target.GetWidth (), 0, base_pos, move_pos) == false) {
+				moved_pos[0] = 0;
+			}
+
+			if (check_range (test_target.GetHeight (), 1, base_pos, move_pos) == false) {
+				moved_pos[1] = 0;
+			}
+
+			if (check_puyo (ref test_target, base_pos, move_pos) == false) {
+				moved_pos[0] = 0;
+				moved_pos[1] = 0;
+			}
+			
+			//test 基準座標 移動量 実際に移動する量
+			_test_move (ref test_target, base_pos, move_pos, moved_pos);
+		}
+	}
+
+	bool check_range (int max, int index, int[, ] base_pos, int[] move_pos) {
+
+		int min_value = base_pos[0, index] + move_pos[index];
+		int max_value = base_pos[1, index] + move_pos[index];
+
+		if ((min_value < 0) || (max_value >= max)) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+
+	bool check_puyo (ref GameField test_target, int[, ] base_pos, int[] move_pos) {
+
+		for (int index = 0; index < 2; index++) {
+
+			if (test_target.get_value (base_pos[index, 0], base_pos[index, 1]) != 0) {
+				return false;
+			}
+
+			int x = base_pos[index, 0] + move_pos[0];
+			int y = base_pos[index, 1] + move_pos[1];
+
+			if (test_target.get_value (x, y) != 0) {
+				return false;
+			}
+		}
+		return true;
+
 	}
 
 	void check_do_not_move (ref GameField test_target) {
@@ -147,35 +182,32 @@ public class test_gamefiled {
 
 		for (int i = 0; i < test_target.GetWidth (); i++) {
 			for (int j = 0; j < test_target.GetHeight (); j++) {
+
+				if ((i == 3) && (j == 3)) continue;
+				if ((i + 1 == 3) && (j == 3)) continue;
+
 				for (int k = 0; k < 4; k++) {
 					int[, ] base_pos = new int[, ] { { i, j }, { i + 1, j } };
-					int[] move_pos = new int[] { test_data[k, 0], test_data[k, 1] };
-					int[] moved_pos = new int[] { move_pos[0], move_pos[1] };
 
-					int min_x = base_pos[0, 0] + move_pos[0];
-					int max_x = base_pos[1, 0] + move_pos[0];
-
-					int min_y = base_pos[0, 1] + move_pos[1];
-					int max_y = base_pos[0, 1] + move_pos[1];
-
-					if ((min_x == 3) || (max_x == 3)) {
-						moved_pos[0] = 0;
-						moved_pos[1] = 0;
-						_test_move (ref test_target, base_pos, moved_pos, moved_pos);
-					}
-
-					if ((min_y == 3) || (max_y == 3)) {
-						moved_pos[0] = 0;
-						moved_pos[1] = 0;
-						_test_move (ref test_target, base_pos, moved_pos, moved_pos);
-					}
+					check_base_and_test (ref test_target, base_pos, test_data);
 				}
 			}
 		}
-
 	}
 
 	void _test_move (ref GameField test_target, int[, ] base_pos, int[] move_pos, int[] moved_pos) {
+
+		//基準座標が範囲外の場合はテストしない
+		for (int i = 0; i < 2; i++) {
+			if ((base_pos[i, 0] < 0) || (base_pos[i, 0] >= test_target.GetWidth ())) {
+				return;
+			}
+
+			if ((base_pos[i, 1] < 0) || (base_pos[i, 1] >= test_target.GetHeight ())) {
+				return;
+			}
+		}
+
 		//設定
 		test_target.get_temp ().set_position (0, base_pos[0, 0], base_pos[0, 1]);
 		test_target.get_temp ().set_position (1, base_pos[1, 0], base_pos[1, 1]);
