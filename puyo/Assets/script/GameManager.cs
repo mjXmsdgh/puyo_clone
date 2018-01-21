@@ -48,11 +48,7 @@ namespace game_manager {
 
 		public bool move (int move_x, int move_y) {
 			m_temp_puyo.move (new Point (move_x, move_y));
-
-			m_game_field.force_to_range (ref m_temp_puyo);
-
-			//m_game_field
-			return false;
+			return m_game_field.force_to_range (ref m_temp_puyo);
 		}
 
 		public void fix () {
@@ -60,7 +56,8 @@ namespace game_manager {
 		}
 
 		public void rotate (bool isRight) {
-			m_game_field.rotate (isRight);
+			m_temp_puyo.rotate (isRight);
+			m_game_field.force_to_range (ref m_temp_puyo);
 		}
 
 		public void next2temp () {

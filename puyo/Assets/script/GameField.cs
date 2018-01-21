@@ -49,30 +49,6 @@ namespace game_field {
 			m_Grid[i, j] = value;
 		}
 
-		//--------------------
-		//move
-		//--------------------
-		public bool move (int move_x, int move_y) {
-			/*
-			//移動前のpuyoを保存
-			puyopuyo prev_puyo = new puyopuyo ();
-			prev_puyo.init ();
-			prev_puyo.copy (m_temp_puyo);
-
-			//移動
-			m_temp_puyo.move (new Point (move_x, move_y));
-
-			if ((isCheck (m_temp_puyo.get_position (0)) == true) && (isCheck (m_temp_puyo.get_position (1)) == true)) {
-				//範囲内ならなにもしない
-				return true;
-			} else {
-				//範囲外ならもとに戻す
-				m_temp_puyo.copy (prev_puyo);
-					return false;
-				}*/
-			return false;
-		}
-
 		public bool force_to_range (ref puyopuyo input_puyo) {
 
 			bool[] check = new bool[2] { false, false };
