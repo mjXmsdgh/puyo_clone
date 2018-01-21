@@ -50,64 +50,66 @@ namespace game_field {
 		}
 
 		public bool force_to_range (ref puyopuyo input_puyo) {
-
-			bool[] check = new bool[2] { false, false };
 			bool isMove = false;
 
-			while ((check[0] == false) || (check[1] == false)) {
+			while (true) {
+
+				Point move_value = new Point (0, 0);
 
 				for (int i = 0; i < 2; i++) {
-					Point temp = input_puyo.get_position (i);
-					Point move = new Point (0, 0);
 
-					//移動量を計算
-					if (temp.get_x () < 0) {
-						move.set (1, 0);
-					} else if (temp.get_x () >= GetWidth ()) {
-						move.set (-1, 0);
-					} else if (temp.get_y () < 0) {
-						move.set (0, +1);
-					} else if (temp.get_y () >= GetHeight ()) {
-						move.set (0, -1);
+					//移動量を取得
+					Point temp_move_value = get_move_value (input_puyo.get_position (i));
+
+					int prev_val = 0;
+					int new_val = 0;
+
+					prev_val = Math.Abs (move_value.get_x ());
+					new_val = Math.Abs (temp_move_value.get_x ());
+
+					if (prev_val < new_val) {
+						move_value.set (temp_move_value.get_x (), move_value.get_y ());
+						isMove = true;
 					}
 
-					//移動
-					input_puyo.move (move);
+					prev_val = Math.Abs (move_value.get_y ());
+					new_val = Math.Abs (temp_move_value.get_y ());
 
-					//フラグ
-					if (isRange (temp) == true) {
-						check[i] = true;
+					if (prev_val < new_val) {
+						move_value.set (move_value.get_y (), temp_move_value.get_y ());
 						isMove = true;
-					} else {
-						check[i] = false;
 					}
 				}
+
+				//移動
+				input_puyo.move (move_value);
+
+				if ((move_value.get_x () == 0) && (move_value.get_y () == 0)) {
+					break;
+				}
+
 			}
+
 			return isMove;
 		}
 
-		//--------------------
-		//rotate
-		//--------------------
-		public void rotate (bool isRight) {
-			/*
-						//移動前のpuyoを保存
-						puyopuyo prev_puyo = new puyopuyo ();
-						prev_puyo.init ();
-						prev_puyo.copy (m_temp_puyo);
+		Point get_move_value (Point temp) {
+			//Point temp = input_puyo.get_position (i);
+			Point move = new Point (0, 0);
 
-						//回転
-						m_temp_puyo.rotate (isRight);
-
-						if ((isCheck (m_temp_puyo.get_position (0)) == true) && (isCheck (m_temp_puyo.get_position (1)) == true)) {
-							//範囲内ならなにもしない
-							return;
-						} else {
-							//範囲外ならもとに戻す
-							m_temp_puyo.copy (prev_puyo);
-							return;
-						}*/
+			//移動量を計算
+			if (temp.get_x () < 0) {
+				move.set (1, 0);
+			} else if (temp.get_x () >= GetWidth ()) {
+				move.set (-1, 0);
+			} else if (temp.get_y () < 0) {
+				move.set (0, +1);
+			} else if (temp.get_y () >= GetHeight ()) {
+				move.set (0, -1);
+			}
+			return move;
 		}
+
 		//--------------------
 		//fix
 		//--------------------

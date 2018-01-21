@@ -59,7 +59,8 @@ public class GameController : MonoBehaviour {
 			//Debug.Log ("get sita");
 			bool ans = m_GameManager.move (0, -1);
 
-			if (ans == false) {
+			if (ans == true) {
+				Debug.Log ("fix");
 				m_GameManager.fix ();
 			}
 		}
