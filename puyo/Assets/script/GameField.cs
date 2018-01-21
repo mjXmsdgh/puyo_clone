@@ -54,23 +54,60 @@ namespace game_field {
 		//--------------------
 		public bool move (int move_x, int move_y) {
 			/*
-						//移動前のpuyoを保存
-						puyopuyo prev_puyo = new puyopuyo ();
-						prev_puyo.init ();
-						prev_puyo.copy (m_temp_puyo);
+			//移動前のpuyoを保存
+			puyopuyo prev_puyo = new puyopuyo ();
+			prev_puyo.init ();
+			prev_puyo.copy (m_temp_puyo);
 
-						//移動
-						m_temp_puyo.move (new Point (move_x, move_y));
+			//移動
+			m_temp_puyo.move (new Point (move_x, move_y));
 
-						if ((isCheck (m_temp_puyo.get_position (0)) == true) && (isCheck (m_temp_puyo.get_position (1)) == true)) {
-							//範囲内ならなにもしない
-							return true;
-						} else {
-							//範囲外ならもとに戻す
-							m_temp_puyo.copy (prev_puyo);
-							return false;
-						}*/
+			if ((isCheck (m_temp_puyo.get_position (0)) == true) && (isCheck (m_temp_puyo.get_position (1)) == true)) {
+				//範囲内ならなにもしない
+				return true;
+			} else {
+				//範囲外ならもとに戻す
+				m_temp_puyo.copy (prev_puyo);
+					return false;
+				}*/
 			return false;
+		}
+
+		public bool force_to_range (ref puyopuyo input_puyo) {
+
+			bool[] check = new bool[2] { false, false };
+			bool isMove = false;
+
+			while ((check[0] == false) || (check[1] == false)) {
+
+				for (int i = 0; i < 2; i++) {
+					Point temp = input_puyo.get_position (i);
+					Point move = new Point (0, 0);
+
+					//移動量を計算
+					if (temp.get_x () < 0) {
+						move.set (1, 0);
+					} else if (temp.get_x () >= GetWidth ()) {
+						move.set (-1, 0);
+					} else if (temp.get_y () < 0) {
+						move.set (0, +1);
+					} else if (temp.get_y () >= GetHeight ()) {
+						move.set (0, -1);
+					}
+
+					//移動
+					input_puyo.move (move);
+
+					//フラグ
+					if (isRange (temp) == true) {
+						check[i] = true;
+						isMove = true;
+					} else {
+						check[i] = false;
+					}
+				}
+			}
+			return isMove;
 		}
 
 		//--------------------
