@@ -107,11 +107,26 @@ public class test_gamefiled {
 
 		Assert.AreEqual (2, test_target.get_value (1, 0));
 		Assert.AreEqual (3, test_target.get_value (1, 1));
+
+		Assert.AreEqual (1, test_target.get_state ());
 	}
 
 	[Test]
 	public void test_fall () {
+		GameField test_target = new GameField ();
+		test_target.init ();
 
+		//落下しない
+		test_target.fall ();
+		Assert.AreEqual (2, test_target.get_state ());
+
+		//落下する
+		test_target.set_value (0, 1, 1);
+		test_target.fall ();
+
+		Assert.AreEqual (1, test_target.get_state ());
+		Assert.AreEqual (1, test_target.get_value (0, 0));
+		Assert.AreEqual (0, test_target.get_value (0, 1));
 	}
 
 	[Test]
