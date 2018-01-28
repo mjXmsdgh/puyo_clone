@@ -49,81 +49,29 @@ namespace game_field {
 			m_Grid[i, j] = value;
 		}
 
-		public bool force_to_range (ref puyopuyo input_puyo) {
-			bool isMove = false;
+		public bool check_collision (ref puyopuyo input_puyo) {
 
-			while (true) {
-
-				Point move_value = new Point (0, 0);
-
-				for (int i = 0; i < 2; i++) {
-
-					//移動量を取得
-					Point temp_move_value = get_move_value (input_puyo.get_position (i));
-
-					int prev_val = 0;
-					int new_val = 0;
-
-					prev_val = Math.Abs (move_value.get_x ());
-					new_val = Math.Abs (temp_move_value.get_x ());
-
-					if (prev_val < new_val) {
-						move_value.set (temp_move_value.get_x (), move_value.get_y ());
-						isMove = true;
-					}
-
-					prev_val = Math.Abs (move_value.get_y ());
-					new_val = Math.Abs (temp_move_value.get_y ());
-
-					if (prev_val < new_val) {
-						move_value.set (move_value.get_y (), temp_move_value.get_y ());
-						isMove = true;
-					}
-				}
-
-				//移動
-				input_puyo.move (move_value);
-
-				if ((move_value.get_x () == 0) && (move_value.get_y () == 0)) {
-					break;
-				}
-
+			bool ans1 = isRange (input_puyo.get_position (0));
+			bool ans2 = isRange (input_puyo.get_position (1));
+			if ((ans1 == false) || (ans2 == false)) {
+				return true;
 			}
-
-			return isMove;
-		}
-
-		Point get_move_value (Point temp) {
-			//Point temp = input_puyo.get_position (i);
-			Point move = new Point (0, 0);
-
-			//移動量を計算
-			if (temp.get_x () < 0) {
-				move.set (1, 0);
-			} else if (temp.get_x () >= GetWidth ()) {
-				move.set (-1, 0);
-			} else if (temp.get_y () < 0) {
-				move.set (0, +1);
-			} else if (temp.get_y () >= GetHeight ()) {
-				move.set (0, -1);
-			}
-			return move;
+			return false;
 		}
 
 		//--------------------
 		//fix
 		//--------------------
-		public void fix () {
-			/*
+		public void fix (puyopuyo input_puyo) {
+
 			for (int i = 0; i < 2; i++) {
-				int color = m_temp_puyo.get_color (i);
-				int pos_x = m_temp_puyo.get_position_x (i);
-				int pos_y = m_temp_puyo.get_position_y (i);
+				int color = input_puyo.get_color (i);
+				int pos_x = input_puyo.get_position_x (i);
+				int pos_y = input_puyo.get_position_y (i);
 
 				m_Grid[pos_x, pos_y] = color;
 			}
 			set_state (1);
-			*/
 		}
 
 		//--------------------

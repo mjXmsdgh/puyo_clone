@@ -47,17 +47,42 @@ namespace game_manager {
 		}
 
 		public bool move (int move_x, int move_y) {
-			m_temp_puyo.move (new Point (move_x, move_y));
-			return m_game_field.force_to_range (ref m_temp_puyo);
-		}
 
-		public void fix () {
-			m_game_field.fix ();
+			//copy
+			puyopuyo prev_puyo = new puyopuyo ();
+			prev_puyo.init ();
+			prev_puyo.copy (m_temp_puyo);
+
+			//move
+			m_temp_puyo.move (new Point (move_x, move_y));
+
+			//check
+			if (m_game_field.check_collision (ref m_temp_puyo) == true) {
+				m_temp_puyo.copy (prev_puyo);
+				return true;
+			} else {
+				return false;
+			}
 		}
 
 		public void rotate (bool isRight) {
+
+			//copy
+			puyopuyo prev_puyo = new puyopuyo ();
+			prev_puyo.init ();
+			prev_puyo.copy (m_temp_puyo);
+
+			//rotate
 			m_temp_puyo.rotate (isRight);
-			m_game_field.force_to_range (ref m_temp_puyo);
+
+			//check
+			if (m_game_field.check_collision (ref m_temp_puyo) == true) {
+				m_temp_puyo.copy (prev_puyo);
+			}
+		}
+
+		public void fix () {
+			m_game_field.fix (m_temp_puyo);
 		}
 
 		public void next2temp () {
