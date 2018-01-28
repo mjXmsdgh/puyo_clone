@@ -51,11 +51,20 @@ namespace game_field {
 
 		public bool check_collision (ref puyopuyo input_puyo) {
 
+			//range
 			bool ans1 = isRange (input_puyo.get_position (0));
 			bool ans2 = isRange (input_puyo.get_position (1));
 			if ((ans1 == false) || (ans2 == false)) {
 				return true;
 			}
+
+			//puyo
+			ans1 = isPuyo (input_puyo.get_position (0));
+			ans2 = isPuyo (input_puyo.get_position (1));
+			if ((ans1 == false) || (ans2 == false)) {
+				return true;
+			}
+
 			return false;
 		}
 
