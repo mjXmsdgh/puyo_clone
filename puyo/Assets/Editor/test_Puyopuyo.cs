@@ -86,4 +86,24 @@ public class test_Puyopuyo {
 			Assert.AreEqual (color, i + 1);
 		}
 	}
+
+	[Test]
+	public void test_copy_position () {
+
+	}
+
+	[Test]
+	public void test_copy () {
+
+	}
+
+	[Test]
+	public void test_move () {
+
+	}
+
+	[Test]
+	public void test_rotate () {
+
+	}
 }
