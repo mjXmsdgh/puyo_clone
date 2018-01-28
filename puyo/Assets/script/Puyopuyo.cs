@@ -19,7 +19,6 @@ namespace puyopuyo_space {
 		//---------
 		//color
 		//---------
-
 		public void set_color (int index, int color) {
 			puyo_color[index] = color;
 		}
