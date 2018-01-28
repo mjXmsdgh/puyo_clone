@@ -139,7 +139,17 @@ public class test_game_manager {
 
 	[Test]
 	public void test_next2temp () {
+		GameManager test_target = new GameManager ();
+		test_target.init ();
 
+		test_target.next2temp ();
+
+		puyopuyo test = test_target.get_temp_puyo ();
+
+		Assert.AreEqual (3, test.get_position_x (0));
+		Assert.AreEqual (10, test.get_position_y (0));
+		Assert.AreEqual (3, test.get_position_x (1));
+		Assert.AreEqual (11, test.get_position_y (1));
 	}
 
 	[Test]
