@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using game_field;
+using next_field;
 using puyopuyo_space;
 using UnityEngine;
 public class DrawGame : MonoBehaviour {
@@ -37,10 +38,10 @@ public class DrawGame : MonoBehaviour {
 	//---------------------------------
 	//描画
 	//---------------------------------
-	public void draw (ref GameField gamefield) {
-		update_grid (ref gamefield);
-		update_temp (ref gamefield);
-		update_next (ref gamefield);
+	public void draw (GameField gamefield, puyopuyo temp_puyo, puyopuyo next_puyo) {
+		update_grid (gamefield);
+		update_temp (temp_puyo);
+		update_next (next_puyo);
 	}
 	//---------------------------------
 	//field関係
@@ -94,7 +95,7 @@ public class DrawGame : MonoBehaviour {
 		}
 	}
 
-	void update_grid (ref GameField input_gamefield) {
+	void update_grid (GameField input_gamefield) {
 
 		//オブジェクトを初期化
 		delete_grid ();
@@ -129,11 +130,8 @@ public class DrawGame : MonoBehaviour {
 		}
 	}
 
-	void update_temp (ref GameField input_gamefield) {
+	void update_temp (puyopuyo temp_puyo) {
 		delete_temp ();
-
-		puyopuyo temp_puyo = input_gamefield.get_temp ();
-
 		for (int i = 0; i < 2; i++) {
 			int color = temp_puyo.get_color (i);
 			int pos_x = temp_puyo.get_position_x (i);
@@ -143,6 +141,7 @@ public class DrawGame : MonoBehaviour {
 				continue;
 			}
 			m_dislayTemp[i] = Instantiate (m_PrefabPuyo[color - 1], new Vector3 (pos_x, pos_y, 0), new Quaternion (0, 0, 0, 0));
+
 		}
 	}
 
@@ -161,11 +160,18 @@ public class DrawGame : MonoBehaviour {
 		}
 	}
 
-	void update_next (ref GameField input_gamefield) {
+	void update_next (puyopuyo next_puyo) {
 		delete_next ();
 		for (int i = 0; i < 2; i++) {
-			int color = input_gamefield.get_next ().get_color (i);
-			m_displayNext[i] = Instantiate (m_PrefabPuyo[color - 1], new Vector3 (8, 9 + i), new Quaternion (0, 0, 0, 0));
+
+			int color = next_puyo.get_color (i);
+			int pos_x = 8;
+			int pos_y = 9 + i;
+
+			if (color == 0) {
+				continue;
+			}
+			m_displayNext[i] = Instantiate (m_PrefabPuyo[color - 1], new Vector3 (pos_x, pos_y, 0), new Quaternion (0, 0, 0, 0));
 		}
 	}
 
