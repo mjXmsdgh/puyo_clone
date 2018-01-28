@@ -92,7 +92,21 @@ public class test_gamefiled {
 
 	[Test]
 	public void test_fix () {
+		GameField test_target = new GameField ();
+		test_target.init ();
 
+		puyopuyo test_puyo = new puyopuyo ();
+		test_puyo.init ();
+
+		test_puyo.set_position (0, 1, 0);
+		test_puyo.set_position (1, 1, 1);
+		test_puyo.set_color (0, 2);
+		test_puyo.set_color (1, 3);
+
+		test_target.fix (test_puyo);
+
+		Assert.AreEqual (2, test_target.get_value (1, 0));
+		Assert.AreEqual (3, test_target.get_value (1, 1));
 	}
 
 	[Test]
