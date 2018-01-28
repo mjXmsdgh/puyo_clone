@@ -104,6 +104,5 @@ namespace game_manager {
 		public void delete () {
 			m_game_field.delete ();
 		}
-
 	}
 }
