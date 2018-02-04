@@ -131,6 +131,23 @@ public class test_gamefiled {
 
 	[Test]
 	public void test_delete () {
+		GameField test_target = new GameField ();
+		test_target.init ();
 
+		//削除しない
+		test_target.delete ();
+		Assert.AreEqual (0, test_target.get_state ());
+
+		//削除する
+		test_target.set_value (1, 1, 2);
+		test_target.set_value (1, 2, 2);
+		test_target.set_value (1, 3, 2);
+		test_target.set_value (1, 4, 2);
+
+		test_target.delete ();
+		Assert.AreEqual (0, test_target.get_value (1, 1));
+		Assert.AreEqual (0, test_target.get_value (1, 2));
+		Assert.AreEqual (0, test_target.get_value (1, 3));
+		Assert.AreEqual (0, test_target.get_value (1, 4));
 	}
 }
