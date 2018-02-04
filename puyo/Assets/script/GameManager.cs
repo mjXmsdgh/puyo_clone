@@ -26,6 +26,7 @@ namespace game_manager {
 			m_next = new next_puyo ();
 			m_next.init ();
 		}
+
 		public GameField get_gamefield () {
 			return m_game_field;
 		}
@@ -47,7 +48,6 @@ namespace game_manager {
 		}
 
 		public bool move (int move_x, int move_y) {
-
 			//copy
 			puyopuyo prev_puyo = new puyopuyo ();
 			prev_puyo.init ();

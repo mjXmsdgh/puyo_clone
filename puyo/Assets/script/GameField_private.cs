@@ -27,18 +27,6 @@ namespace game_field {
 			}
 		}
 
-		//--------------------
-		//check
-		//--------------------
-
-		bool isCheck (Point pos) {
-			if ((isRange (pos) == true) && (isPuyo (pos) == true)) {
-				return true;
-			} else {
-				return false;
-			}
-		}
-
 		bool isRange (Point pos) {
 
 			if ((pos.get_x () < 0) || (pos.get_x () >= GetWidth ())) {
@@ -58,6 +46,7 @@ namespace game_field {
 				return false;
 			}
 		}
+
 		//--------------------
 		//fall
 		//--------------------
@@ -119,6 +108,7 @@ namespace game_field {
 				}
 			}
 		}
+
 		//--------------------
 		//delete
 		//--------------------
