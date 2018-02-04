@@ -80,7 +80,6 @@ public class DrawGame : MonoBehaviour {
 	//---------------------------------
 	//grid関係
 	//---------------------------------
-
 	void init_grid () {
 		for (int i = 0; i < get_width (); i++) {
 			for (int j = 0; j < get_height (); j++)

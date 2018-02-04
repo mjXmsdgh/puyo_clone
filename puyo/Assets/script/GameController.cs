@@ -44,9 +44,9 @@ public class GameController : MonoBehaviour {
 		}
 
 		//ゲームを描画
-		//m_DrawGame.draw (ref m_field);
 		m_DrawGame.draw (m_GameManager.get_gamefield (), m_GameManager.get_temp_puyo (), m_GameManager.get_next_puyo ());
 	}
+
 	void ManageKey () {
 		//移動
 		if (Input.GetKeyDown (KeyCode.UpArrow)) {
