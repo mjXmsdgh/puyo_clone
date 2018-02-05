@@ -1,8 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using next_field;
 using point_space;
 using puyopuyo_space;
+using System.Collections.Generic;
 
 namespace game_field {
 
@@ -116,7 +116,7 @@ namespace game_field {
 		//--------------------
 		//delete
 		//--------------------
-		public void delete () {
+		public bool delete () {
 
 			//削除するところにフラグを付ける
 			bool isDelete = check_delete ();
@@ -124,12 +124,14 @@ namespace game_field {
 			if (isDelete == false) {
 				//削除しないので通常状態
 				set_state (0);
+				return false;
 			} else {
 				//フラグが付いたところを削除する
 				_delete ();
 
 				//削除したので落下状態
 				set_state (1);
+				return true;
 			}
 		}
 	}

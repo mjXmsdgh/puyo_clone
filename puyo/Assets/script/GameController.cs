@@ -1,8 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using game_field;
+﻿using game_field;
 using game_manager;
 using next_field;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 public class GameController : MonoBehaviour {
 
@@ -12,6 +12,10 @@ public class GameController : MonoBehaviour {
 	//ゲームの描画
 	public DrawGame m_DrawGame;
 
+	AudioSource[] audiosource;
+	public AudioClip audioClip_hit;
+	public AudioClip audioClip_get;
+
 	// Use this for initialization
 	void Start () {
 
@@ -19,6 +23,14 @@ public class GameController : MonoBehaviour {
 		m_GameManager.init ();
 
 		m_DrawGame.init (m_GameManager.getWidth (), m_GameManager.getHeight ());
+
+		audiosource = new AudioSource[2];
+
+		audiosource[0] = gameObject.AddComponent<AudioSource> ();
+		audiosource[1] = gameObject.AddComponent<AudioSource> ();
+
+		audiosource[0].clip = audioClip_hit;
+		audiosource[1].clip = audioClip_get;
 	}
 
 	// Update is called once per frame
@@ -31,7 +43,10 @@ public class GameController : MonoBehaviour {
 
 		//削除
 		if (m_GameManager.get_state () == 2) {
-			m_GameManager.delete ();
+
+			if (m_GameManager.delete () == true) {
+				audiosource[1].Play ();
+			}
 
 			if (m_GameManager.get_state () == 0) {
 				m_GameManager.next2temp ();
@@ -50,9 +65,11 @@ public class GameController : MonoBehaviour {
 	void ManageKey () {
 		//移動
 		if (Input.GetKeyDown (KeyCode.UpArrow)) {
+			audiosource[0].Play ();
 			m_GameManager.move (0, +1);
 		}
 		if (Input.GetKeyDown (KeyCode.DownArrow)) {
+			audiosource[0].Play ();
 			bool ans = m_GameManager.move (0, -1);
 
 			if (ans == true) {
@@ -60,17 +77,21 @@ public class GameController : MonoBehaviour {
 			}
 		}
 		if (Input.GetKeyDown (KeyCode.LeftArrow)) {
+			audiosource[0].Play ();
 			m_GameManager.move (-1, 0);
 		}
 		if (Input.GetKeyDown (KeyCode.RightArrow)) {
+			audiosource[0].Play ();
 			m_GameManager.move (+1, 0);
 		}
 
 		//回転
 		if (Input.GetKeyDown (KeyCode.Z)) {
+			audiosource[0].Play ();
 			m_GameManager.rotate (true);
 		}
 		if (Input.GetKeyDown (KeyCode.X)) {
+			audiosource[0].Play ();
 			m_GameManager.rotate (false);
 		}
 

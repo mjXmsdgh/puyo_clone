@@ -14,6 +14,7 @@ namespace puyopuyo_space {
 			for (int i = 0; i < 2; i++) {
 				puyo_pos[i] = new Point (0, 0);
 			}
+
 		}
 
 		//---------

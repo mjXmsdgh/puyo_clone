@@ -1,9 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using game_field;
 using next_field;
 using point_space;
 using puyopuyo_space;
+using System.Collections.Generic;
 
 namespace game_manager {
 
@@ -101,8 +101,8 @@ namespace game_manager {
 			m_game_field.fall ();
 		}
 
-		public void delete () {
-			m_game_field.delete ();
+		public bool delete () {
+			return m_game_field.delete ();
 		}
 	}
 }
