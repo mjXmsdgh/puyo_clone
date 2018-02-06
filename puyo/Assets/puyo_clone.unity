@@ -543,6 +543,16 @@ Prefab:
       propertyPath: m_DrawGame
       value: 
       objectReference: {fileID: 1876030510}
+    - target: {fileID: 114491716699917086, guid: 4c90560b76215364c8de615c7f397b1f,
+        type: 2}
+      propertyPath: audioClip_hit
+      value: 
+      objectReference: {fileID: 8300000, guid: 7f8143aad405640449bf253091449c6b, type: 3}
+    - target: {fileID: 114491716699917086, guid: 4c90560b76215364c8de615c7f397b1f,
+        type: 2}
+      propertyPath: audioClip_get
+      value: 
+      objectReference: {fileID: 8300000, guid: 71ccb8d2b0fe9404f8cc4f59bfaafab6, type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 4c90560b76215364c8de615c7f397b1f, type: 2}
   m_IsPrefabParent: 0
