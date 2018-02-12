@@ -126,14 +126,16 @@ public class DrawGame : MonoBehaviour {
 
 	void delete_temp () {
 		for (int i = 0; i < 2; i++) {
-			Destroy (m_dislayTemp[i]);
+			if (m_dislayTemp[i]) {
+				DestroyImmediate (m_dislayTemp[i]);
+				m_dislayTemp[i] = null;
+			}
 		}
 	}
 
 	void update_temp (puyopuyo temp_puyo) {
 
 		if (temp_puyo.isValid () == false) {
-			Debug.Log ("fff");
 			return;
 		}
 
