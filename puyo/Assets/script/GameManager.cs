@@ -1,9 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using game_field;
 using next_field;
 using point_space;
 using puyopuyo_space;
+using System.Collections.Generic;
 
 namespace game_manager {
 
@@ -83,12 +83,14 @@ namespace game_manager {
 
 		public void fix () {
 			m_game_field.fix (m_temp_puyo);
+			m_temp_puyo.setValid (false);
 		}
 
 		public void next2temp () {
 			m_temp_puyo.copy_color (m_next.get ());
 			m_temp_puyo.set_position (0, 3, 10);
 			m_temp_puyo.set_position (1, 3, 11);
+			m_temp_puyo.setValid (true);
 
 			m_next.update_next ();
 		}
@@ -99,10 +101,22 @@ namespace game_manager {
 
 		public void fall () {
 			m_game_field.fall ();
+			m_temp_puyo.setValid (false);
+		}
+
+		public bool check_delete () {
+			m_temp_puyo.setValid (false);
+
+			return m_game_field.check_delete ();
 		}
 
 		public void delete () {
+			m_temp_puyo.setValid (false);
 			m_game_field.delete ();
+		}
+
+		public int get_rensa () {
+			return m_game_field.get_rensa ();
 		}
 	}
 }

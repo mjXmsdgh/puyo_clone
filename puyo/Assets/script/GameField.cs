@@ -1,8 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using next_field;
 using point_space;
 using puyopuyo_space;
+using System.Collections.Generic;
 
 namespace game_field {
 
@@ -11,8 +11,11 @@ namespace game_field {
 		private static int m_width = 6;
 		private static int m_height = 12;
 
-		//0:通常 1:落下状態 2:削除状態
+		//0:通常 1:落下 2:削除フラグをつける 3:削除
 		private int m_state = 0;
+
+		//連鎖数
+		private int m_rensa = 0;
 
 		//0:空っぽ 1: 2: 3: 4: 5: 6:
 		private int[, ] m_Grid = new int[m_width, m_height];
@@ -36,6 +39,10 @@ namespace game_field {
 		//--------------------
 		public int get_state () {
 			return m_state;
+		}
+
+		public int get_rensa () {
+			return m_rensa;
 		}
 
 		//--------------------
@@ -108,7 +115,7 @@ namespace game_field {
 				//引き続き落下状態
 				set_state (1);
 			} else {
-				//落下しないので削除状態
+				//落下しないので削除フラグをつける
 				set_state (2);
 			}
 		}
@@ -116,21 +123,26 @@ namespace game_field {
 		//--------------------
 		//delete
 		//--------------------
-		public void delete () {
+		public bool check_delete () {
 
-			//削除するところにフラグを付ける
-			bool isDelete = check_delete ();
+			bool ans = flood_fill ();
 
-			if (isDelete == false) {
-				//削除しないので通常状態
-				set_state (0);
+			if (ans == true) {
+				//削除表示
+				set_state (3);
 			} else {
-				//フラグが付いたところを削除する
-				_delete ();
-
-				//削除したので落下状態
-				set_state (1);
+				//通常
+				set_state (0);
+				m_rensa = 0;
 			}
+
+			return ans;
+		}
+
+		public void delete () {
+			_delete ();
+			//削除したので落下
+			set_state (1);
 		}
 	}
 }

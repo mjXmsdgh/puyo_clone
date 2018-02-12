@@ -1,8 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using game_field;
+﻿using game_field;
 using next_field;
 using puyopuyo_space;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 public class DrawGame : MonoBehaviour {
 
@@ -38,9 +38,9 @@ public class DrawGame : MonoBehaviour {
 	//---------------------------------
 	//描画
 	//---------------------------------
-	public void draw (GameField gamefield, puyopuyo temp_puyo, puyopuyo next_puyo) {
-		update_grid (gamefield);
+	public void draw (GameField gamefield, puyopuyo temp_puyo, puyopuyo next_puyo, int state) {
 		update_temp (temp_puyo);
+		update_grid (gamefield);
 		update_next (next_puyo);
 	}
 	//---------------------------------
@@ -71,7 +71,6 @@ public class DrawGame : MonoBehaviour {
 		}
 	}
 	void _load_color (int color_num) {
-
 		string name = getColorName (color_num);
 		string resorce_name = "puyoObj/" + name;
 		m_PrefabPuyo[color_num - 1] = (GameObject) Resources.Load (resorce_name);
@@ -105,11 +104,13 @@ public class DrawGame : MonoBehaviour {
 
 				int value = input_gamefield.get_value (i, j);
 
-				if (value <= 0) {
+				if (value == 0) {
 					continue;
+				} else if (value < 0) {
+					m_displayGrid[i, j] = Instantiate (m_PrefabPuyo[0], new Vector3 (i, j), new Quaternion (0, 0, 0, 0));
+				} else {
+					m_displayGrid[i, j] = Instantiate (m_PrefabPuyo[value - 1], new Vector3 (i, j), new Quaternion (0, 0, 0, 0));
 				}
-
-				m_displayGrid[i, j] = Instantiate (m_PrefabPuyo[value - 1], new Vector3 (i, j), new Quaternion (0, 0, 0, 0));
 			}
 		}
 	}
@@ -125,12 +126,21 @@ public class DrawGame : MonoBehaviour {
 
 	void delete_temp () {
 		for (int i = 0; i < 2; i++) {
-			Destroy (m_dislayTemp[i]);
+			if (m_dislayTemp[i]) {
+				DestroyImmediate (m_dislayTemp[i]);
+				m_dislayTemp[i] = null;
+			}
 		}
 	}
 
 	void update_temp (puyopuyo temp_puyo) {
+
+		if (temp_puyo.isValid () == false) {
+			return;
+		}
+
 		delete_temp ();
+
 		for (int i = 0; i < 2; i++) {
 			int color = temp_puyo.get_color (i);
 			int pos_x = temp_puyo.get_position_x (i);

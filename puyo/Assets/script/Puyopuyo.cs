@@ -7,6 +7,8 @@ namespace puyopuyo_space {
 		private int[] puyo_color = new int[2];
 		private Point[] puyo_pos = new Point[2];
 
+		private bool m_isValid = false;
+
 		public void init () {
 			set_color (0, 0);
 			set_color (1, 0);
@@ -14,6 +16,16 @@ namespace puyopuyo_space {
 			for (int i = 0; i < 2; i++) {
 				puyo_pos[i] = new Point (0, 0);
 			}
+
+			m_isValid = true;
+		}
+
+		public bool isValid () {
+			return m_isValid;
+		}
+
+		public void setValid (bool ans) {
+			m_isValid = ans;
 		}
 
 		//---------
