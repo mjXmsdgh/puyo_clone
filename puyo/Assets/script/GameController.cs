@@ -9,6 +9,10 @@ public class GameController : MonoBehaviour {
 	//ゲーム
 	private GameManager m_GameManager;
 
+	//時間
+	public float timeOut;
+	private float timeElapsed;
+
 	//ゲームの描画
 	public DrawGame m_DrawGame;
 
@@ -18,6 +22,8 @@ public class GameController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		timeElapsed = 0;
+		timeOut = 0.5f;
 
 		m_GameManager = new GameManager ();
 		m_GameManager.init ();
@@ -44,8 +50,22 @@ public class GameController : MonoBehaviour {
 			return;
 		}
 
+		//
+		if (m_GameManager.get_state () == 4) {
+			timeElapsed += Time.deltaTime;
+			Debug.Log ("fff");
+			Debug.Log (timeElapsed);
+
+			if (timeElapsed >= timeOut) {
+				m_GameManager.func ();
+				timeElapsed = 0.0f;
+			}
+			return;
+		}
+
 		//削除フラグ
 		if (m_GameManager.get_state () == 2) {
+
 			m_GameManager.check_delete ();
 
 			if (m_GameManager.get_state () == 0) {

@@ -11,7 +11,7 @@ namespace game_field {
 		private static int m_width = 6;
 		private static int m_height = 12;
 
-		//0:通常 1:落下状態 2:削除状態 3:削除フラグ
+		//0:通常 1:落下状態 2:削除状態 3:削除フラグ 4:消えてる
 		private int m_state = 0;
 
 		//0:空っぽ 1: 2: 3: 4: 5: 6:
@@ -121,12 +121,16 @@ namespace game_field {
 			bool ans = check_delete ();
 
 			if (ans == true) {
-				set_state (3);
+				set_state (4);
 			} else {
 				set_state (0);
 			}
 
 			return ans;
+		}
+
+		public void change_to_delete () {
+			set_state (3);
 		}
 
 		public void delete () {
