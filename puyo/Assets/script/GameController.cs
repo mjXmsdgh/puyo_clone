@@ -42,7 +42,8 @@ public class GameController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-		m_DrawGame.draw (m_GameManager.get_gamefield (), m_GameManager.get_temp_puyo (), m_GameManager.get_next_puyo ());
+		//描画
+		m_DrawGame.draw (m_GameManager.get_gamefield (), m_GameManager.get_temp_puyo (), m_GameManager.get_next_puyo (), m_GameManager.get_state ());
 
 		//落下
 		if (m_GameManager.get_state () == 1) {
@@ -63,22 +64,9 @@ public class GameController : MonoBehaviour {
 
 		//削除
 		if (m_GameManager.get_state () == 3) {
-			m_DrawGame.draw (m_GameManager.get_gamefield (), m_GameManager.get_temp_puyo (), m_GameManager.get_next_puyo ());
-
 			m_GameManager.delete ();
 			Debug.Log (m_GameManager.get_rensa ());
 			audiosource[1].Play ();
-			return;
-		}
-
-		//削除表示
-		if (m_GameManager.get_state () == 4) {
-			timeElapsed += Time.deltaTime;
-
-			if (timeElapsed >= timeOut) {
-				m_GameManager.func ();
-				timeElapsed = 0.0f;
-			}
 
 			return;
 		}

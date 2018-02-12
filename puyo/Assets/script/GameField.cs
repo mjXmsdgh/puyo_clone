@@ -129,7 +129,7 @@ namespace game_field {
 
 			if (ans == true) {
 				//削除表示
-				set_state (4);
+				set_state (3);
 			} else {
 				//通常
 				set_state (0);
@@ -137,12 +137,6 @@ namespace game_field {
 			}
 
 			return ans;
-		}
-
-		public void change_to_delete () {
-			//削除する
-			set_state (3);
-			m_rensa++;
 		}
 
 		public void delete () {

@@ -105,10 +105,6 @@ namespace game_manager {
 			return m_game_field.check_delete_now ();
 		}
 
-		public void func () {
-			m_game_field.change_to_delete ();
-		}
-
 		public void delete () {
 			m_game_field.delete ();
 		}

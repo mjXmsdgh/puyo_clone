@@ -38,8 +38,12 @@ public class DrawGame : MonoBehaviour {
 	//---------------------------------
 	//描画
 	//---------------------------------
-	public void draw (GameField gamefield, puyopuyo temp_puyo, puyopuyo next_puyo) {
-		update_temp (temp_puyo);
+	public void draw (GameField gamefield, puyopuyo temp_puyo, puyopuyo next_puyo, int state) {
+
+		if (state == 0) {
+			update_temp (temp_puyo);
+		}
+
 		update_grid (gamefield);
 		update_next (next_puyo);
 	}
