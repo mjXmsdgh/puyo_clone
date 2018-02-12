@@ -101,8 +101,12 @@ namespace game_manager {
 			m_game_field.fall ();
 		}
 
-		public bool delete () {
-			return m_game_field.delete ();
+		public bool check_delete () {
+			return m_game_field.check_delete_now ();
+		}
+
+		public void delete () {
+			m_game_field.delete ();
 		}
 	}
 }

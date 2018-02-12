@@ -11,7 +11,7 @@ namespace game_field {
 		private static int m_width = 6;
 		private static int m_height = 12;
 
-		//0:通常 1:落下状態 2:削除状態
+		//0:通常 1:落下状態 2:削除状態 3:削除フラグ
 		private int m_state = 0;
 
 		//0:空っぽ 1: 2: 3: 4: 5: 6:
@@ -116,23 +116,22 @@ namespace game_field {
 		//--------------------
 		//delete
 		//--------------------
-		public bool delete () {
+		public bool check_delete_now () {
 
-			//削除するところにフラグを付ける
-			bool isDelete = check_delete ();
+			bool ans = check_delete ();
 
-			if (isDelete == false) {
-				//削除しないので通常状態
-				set_state (0);
-				return false;
+			if (ans == true) {
+				set_state (3);
 			} else {
-				//フラグが付いたところを削除する
-				_delete ();
-
-				//削除したので落下状態
-				set_state (1);
-				return true;
+				set_state (0);
 			}
+
+			return ans;
+		}
+
+		public void delete () {
+			_delete ();
+			set_state (1);
 		}
 	}
 }

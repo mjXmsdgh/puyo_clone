@@ -1,8 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using game_field;
+﻿using game_field;
 using next_field;
 using puyopuyo_space;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 public class DrawGame : MonoBehaviour {
 
@@ -105,11 +105,13 @@ public class DrawGame : MonoBehaviour {
 
 				int value = input_gamefield.get_value (i, j);
 
-				if (value <= 0) {
+				if (value == 0) {
 					continue;
+				} else if (value < 0) {
+					m_displayGrid[i, j] = Instantiate (m_PrefabPuyo[0], new Vector3 (i, j), new Quaternion (0, 0, 0, 0));
+				} else {
+					m_displayGrid[i, j] = Instantiate (m_PrefabPuyo[value - 1], new Vector3 (i, j), new Quaternion (0, 0, 0, 0));
 				}
-
-				m_displayGrid[i, j] = Instantiate (m_PrefabPuyo[value - 1], new Vector3 (i, j), new Quaternion (0, 0, 0, 0));
 			}
 		}
 	}

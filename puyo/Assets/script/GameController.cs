@@ -36,21 +36,31 @@ public class GameController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
+		m_DrawGame.draw (m_GameManager.get_gamefield (), m_GameManager.get_temp_puyo (), m_GameManager.get_next_puyo ());
+
 		//落下
 		if (m_GameManager.get_state () == 1) {
 			m_GameManager.fall ();
+			return;
 		}
 
-		//削除
+		//削除フラグ
 		if (m_GameManager.get_state () == 2) {
-
-			if (m_GameManager.delete () == true) {
-				audiosource[1].Play ();
-			}
+			m_GameManager.check_delete ();
 
 			if (m_GameManager.get_state () == 0) {
 				m_GameManager.next2temp ();
 			}
+			return;
+		}
+
+		//削除
+		if (m_GameManager.get_state () == 3) {
+			m_DrawGame.draw (m_GameManager.get_gamefield (), m_GameManager.get_temp_puyo (), m_GameManager.get_next_puyo ());
+
+			m_GameManager.delete ();
+			audiosource[1].Play ();
+			return;
 		}
 
 		//キー入力
@@ -59,7 +69,7 @@ public class GameController : MonoBehaviour {
 		}
 
 		//ゲームを描画
-		m_DrawGame.draw (m_GameManager.get_gamefield (), m_GameManager.get_temp_puyo (), m_GameManager.get_next_puyo ());
+		//m_DrawGame.draw (m_GameManager.get_gamefield (), m_GameManager.get_temp_puyo (), m_GameManager.get_next_puyo ());
 	}
 
 	void ManageKey () {
