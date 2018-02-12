@@ -66,6 +66,7 @@ public class GameController : MonoBehaviour {
 			m_DrawGame.draw (m_GameManager.get_gamefield (), m_GameManager.get_temp_puyo (), m_GameManager.get_next_puyo ());
 
 			m_GameManager.delete ();
+			Debug.Log (m_GameManager.get_rensa ());
 			audiosource[1].Play ();
 			return;
 		}
@@ -78,6 +79,7 @@ public class GameController : MonoBehaviour {
 				m_GameManager.func ();
 				timeElapsed = 0.0f;
 			}
+
 			return;
 		}
 

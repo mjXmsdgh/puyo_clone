@@ -14,6 +14,9 @@ namespace game_field {
 		//0:通常 1:落下 2:削除フラグをつける 3:削除 4:削除表示
 		private int m_state = 0;
 
+		//連鎖数
+		private int m_rensa = 0;
+
 		//0:空っぽ 1: 2: 3: 4: 5: 6:
 		private int[, ] m_Grid = new int[m_width, m_height];
 
@@ -36,6 +39,10 @@ namespace game_field {
 		//--------------------
 		public int get_state () {
 			return m_state;
+		}
+
+		public int get_rensa () {
+			return m_rensa;
 		}
 
 		//--------------------
@@ -126,6 +133,7 @@ namespace game_field {
 			} else {
 				//通常
 				set_state (0);
+				m_rensa = 0;
 			}
 
 			return ans;
@@ -134,6 +142,7 @@ namespace game_field {
 		public void change_to_delete () {
 			//削除する
 			set_state (3);
+			m_rensa++;
 		}
 
 		public void delete () {

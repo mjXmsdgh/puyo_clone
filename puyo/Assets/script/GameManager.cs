@@ -112,5 +112,9 @@ namespace game_manager {
 		public void delete () {
 			m_game_field.delete ();
 		}
+
+		public int get_rensa () {
+			return m_game_field.get_rensa ();
+		}
 	}
 }
