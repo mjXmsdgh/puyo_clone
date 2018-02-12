@@ -83,12 +83,14 @@ namespace game_manager {
 
 		public void fix () {
 			m_game_field.fix (m_temp_puyo);
+			m_temp_puyo.setValid (false);
 		}
 
 		public void next2temp () {
 			m_temp_puyo.copy_color (m_next.get ());
 			m_temp_puyo.set_position (0, 3, 10);
 			m_temp_puyo.set_position (1, 3, 11);
+			m_temp_puyo.setValid (true);
 
 			m_next.update_next ();
 		}
@@ -99,13 +101,17 @@ namespace game_manager {
 
 		public void fall () {
 			m_game_field.fall ();
+			m_temp_puyo.setValid (false);
 		}
 
 		public bool check_delete () {
-			return m_game_field.check_delete_now ();
+			m_temp_puyo.setValid (false);
+
+			return m_game_field.check_delete ();
 		}
 
 		public void delete () {
+			m_temp_puyo.setValid (false);
 			m_game_field.delete ();
 		}
 

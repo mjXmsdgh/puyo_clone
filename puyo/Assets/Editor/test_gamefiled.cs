@@ -136,7 +136,7 @@ public class test_gamefiled {
 
 		//削除しない
 		test_target.delete ();
-		test_target.check_delete_now ();
+		test_target.check_delete ();
 		Assert.AreEqual (0, test_target.get_state ());
 
 		//削除する
@@ -146,7 +146,7 @@ public class test_gamefiled {
 		test_target.set_value (1, 4, 2);
 
 		test_target.delete ();
-		test_target.check_delete_now ();
+		test_target.check_delete ();
 		Assert.AreEqual (-1, test_target.get_value (1, 1));
 		Assert.AreEqual (-1, test_target.get_value (1, 2));
 		Assert.AreEqual (-1, test_target.get_value (1, 3));

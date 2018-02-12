@@ -1,8 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using next_field;
 using point_space;
 using puyopuyo_space;
+using System.Collections.Generic;
 
 namespace game_field {
 
@@ -112,10 +112,6 @@ namespace game_field {
 		//--------------------
 		//delete
 		//--------------------
-		bool check_delete () {
-			return flood_fill ();
-		}
-
 		bool flood_fill () {
 
 			bool delete_flag = false;

@@ -11,7 +11,7 @@ namespace game_field {
 		private static int m_width = 6;
 		private static int m_height = 12;
 
-		//0:通常 1:落下 2:削除フラグをつける 3:削除 4:削除表示
+		//0:通常 1:落下 2:削除フラグをつける 3:削除
 		private int m_state = 0;
 
 		//連鎖数
@@ -123,9 +123,9 @@ namespace game_field {
 		//--------------------
 		//delete
 		//--------------------
-		public bool check_delete_now () {
+		public bool check_delete () {
 
-			bool ans = check_delete ();
+			bool ans = flood_fill ();
 
 			if (ans == true) {
 				//削除表示
