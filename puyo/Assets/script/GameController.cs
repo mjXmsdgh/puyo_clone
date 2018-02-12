@@ -50,19 +50,6 @@ public class GameController : MonoBehaviour {
 			return;
 		}
 
-		//
-		if (m_GameManager.get_state () == 4) {
-			timeElapsed += Time.deltaTime;
-			Debug.Log ("fff");
-			Debug.Log (timeElapsed);
-
-			if (timeElapsed >= timeOut) {
-				m_GameManager.func ();
-				timeElapsed = 0.0f;
-			}
-			return;
-		}
-
 		//削除フラグ
 		if (m_GameManager.get_state () == 2) {
 
@@ -83,13 +70,21 @@ public class GameController : MonoBehaviour {
 			return;
 		}
 
+		//削除表示
+		if (m_GameManager.get_state () == 4) {
+			timeElapsed += Time.deltaTime;
+
+			if (timeElapsed >= timeOut) {
+				m_GameManager.func ();
+				timeElapsed = 0.0f;
+			}
+			return;
+		}
+
 		//キー入力
 		if (m_GameManager.get_state () == 0) {
 			ManageKey ();
 		}
-
-		//ゲームを描画
-		//m_DrawGame.draw (m_GameManager.get_gamefield (), m_GameManager.get_temp_puyo (), m_GameManager.get_next_puyo ());
 	}
 
 	void ManageKey () {
