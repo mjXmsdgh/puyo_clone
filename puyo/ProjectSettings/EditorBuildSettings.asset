@@ -4,4 +4,10 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/start.unity
+    guid: d866944d3e4f90845b7629a236623adb
+  - enabled: 1
+    path: Assets/puyo_clone.unity
+    guid: 4d754a3370255b34f913593ed3e1defb
