@@ -41,6 +41,9 @@ namespace game_field {
 			return m_state;
 		}
 
+		//--------------------
+		//rensa
+		//--------------------
 		public int get_rensa () {
 			return m_rensa;
 		}
@@ -48,17 +51,15 @@ namespace game_field {
 		//--------------------
 		//grid
 		//--------------------
-
 		public int get_value (int input_i, int input_j) {
-
 			if (isRange (new Point (input_i, input_j)) == false) {
 				return -99;
 			}
 
 			return m_Grid[input_i, input_j];
 		}
-		public bool set_value (int i, int j, int value) {
 
+		public bool set_value (int i, int j, int value) {
 			if (isRange (new Point (i, j)) == false) {
 				return false;
 			}
@@ -67,8 +68,10 @@ namespace game_field {
 			return true;
 		}
 
+		//--------------------
+		//collision
+		//--------------------
 		public bool check_collision (ref puyopuyo input_puyo) {
-
 			//range
 			bool ans1 = isRange (input_puyo.get_position (0));
 			bool ans2 = isRange (input_puyo.get_position (1));
@@ -90,13 +93,11 @@ namespace game_field {
 		//fix
 		//--------------------
 		public void fix (puyopuyo input_puyo) {
-
 			for (int i = 0; i < 2; i++) {
 				int color = input_puyo.get_color (i);
-				int pos_x = input_puyo.get_position_x (i);
-				int pos_y = input_puyo.get_position_y (i);
+				Point pos = input_puyo.get_position (i);
 
-				m_Grid[pos_x, pos_y] = color;
+				m_Grid[pos.get_x (), pos.get_y ()] = color;
 			}
 			set_state (1);
 		}

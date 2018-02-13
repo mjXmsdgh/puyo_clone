@@ -22,24 +22,6 @@ public class test_gamefiled {
 	}
 
 	[Test]
-	public void test_GetWidth () {
-		GameField test_target = new GameField ();
-		Assert.AreEqual (6, test_target.GetWidth ());
-	}
-
-	[Test]
-	public void test_GetHeight () {
-		GameField test_target = new GameField ();
-		Assert.AreEqual (12, test_target.GetHeight ());
-	}
-
-	[Test]
-	public void test_getState () {
-		GameField test_target = new GameField ();
-		Assert.AreEqual (0, test_target.get_state ());
-	}
-
-	[Test]
 	public void test_setgetvalue () {
 		GameField test_target = new GameField ();
 
@@ -127,6 +109,11 @@ public class test_gamefiled {
 		Assert.AreEqual (1, test_target.get_state ());
 		Assert.AreEqual (1, test_target.get_value (0, 0));
 		Assert.AreEqual (0, test_target.get_value (0, 1));
+	}
+
+	[Test]
+	public void test_check_delete () {
+
 	}
 
 	[Test]

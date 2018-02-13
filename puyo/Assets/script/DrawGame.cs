@@ -1,9 +1,11 @@
 ﻿using game_field;
 using next_field;
+using point_space;
 using puyopuyo_space;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
 public class DrawGame : MonoBehaviour {
 
 	private int m_width = 0;
@@ -38,7 +40,7 @@ public class DrawGame : MonoBehaviour {
 	//---------------------------------
 	//描画
 	//---------------------------------
-	public void draw (GameField gamefield, puyopuyo temp_puyo, puyopuyo next_puyo, int state) {
+	public void draw (GameField gamefield, puyopuyo temp_puyo, puyopuyo next_puyo) {
 		update_temp (temp_puyo);
 		update_grid (gamefield);
 		update_next (next_puyo);
@@ -89,12 +91,14 @@ public class DrawGame : MonoBehaviour {
 	void delete_grid () {
 		for (int i = 0; i < get_width (); i++) {
 			for (int j = 0; j < get_height (); j++)
-				Destroy (m_displayGrid[i, j]);
+				if (m_displayGrid[i, j]) {
+					DestroyImmediate (m_displayGrid[i, j]);
+					m_displayGrid[i, j] = null;
+				}
 		}
 	}
 
 	void update_grid (GameField input_gamefield) {
-
 		//オブジェクトを初期化
 		delete_grid ();
 
@@ -134,23 +138,23 @@ public class DrawGame : MonoBehaviour {
 	}
 
 	void update_temp (puyopuyo temp_puyo) {
+		delete_temp ();
 
-		if (temp_puyo.isValid () == false) {
+		if (temp_puyo.is_valid () == false) {
 			return;
 		}
 
-		delete_temp ();
-
 		for (int i = 0; i < 2; i++) {
 			int color = temp_puyo.get_color (i);
-			int pos_x = temp_puyo.get_position_x (i);
-			int pos_y = temp_puyo.get_position_y (i);
 
 			if (color == 0) {
 				continue;
 			}
-			m_dislayTemp[i] = Instantiate (m_PrefabPuyo[color - 1], new Vector3 (pos_x, pos_y, 0), new Quaternion (0, 0, 0, 0));
 
+			Point temp_pos = temp_puyo.get_position (i);
+			Vector3 pos = new Vector3 (temp_pos.get_x (), temp_pos.get_y (), 0);
+
+			m_dislayTemp[i] = Instantiate (m_PrefabPuyo[color - 1], pos, new Quaternion (0, 0, 0, 0));
 		}
 	}
 
@@ -165,7 +169,10 @@ public class DrawGame : MonoBehaviour {
 
 	void delete_next () {
 		for (int i = 0; i < 2; i++) {
-			Destroy (m_displayNext[i]);
+			if (m_displayNext[i]) {
+				DestroyImmediate (m_displayNext[i]);
+				m_displayNext[i] = null;
+			}
 		}
 	}
 

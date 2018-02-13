@@ -18,11 +18,14 @@ public class GameController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		//game manager
 		m_GameManager = new GameManager ();
 		m_GameManager.init ();
 
+		//draw game
 		m_DrawGame.init (m_GameManager.getWidth (), m_GameManager.getHeight ());
 
+		//audio
 		audiosource = new AudioSource[2];
 
 		audiosource[0] = gameObject.AddComponent<AudioSource> ();
@@ -36,7 +39,7 @@ public class GameController : MonoBehaviour {
 	void Update () {
 
 		//描画
-		m_DrawGame.draw (m_GameManager.get_gamefield (), m_GameManager.get_temp_puyo (), m_GameManager.get_next_puyo (), m_GameManager.get_state ());
+		m_DrawGame.draw (m_GameManager.get_gamefield (), m_GameManager.get_temp_puyo (), m_GameManager.get_next_puyo ());
 
 		//落下
 		if (m_GameManager.get_state () == 1) {
