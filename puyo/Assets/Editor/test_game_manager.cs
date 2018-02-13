@@ -1,8 +1,8 @@
-﻿using System.Collections;
-using game_field;
+﻿using game_field;
 using game_manager;
 using NUnit.Framework;
 using puyopuyo_space;
+using System.Collections;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.TestTools;
@@ -163,7 +163,17 @@ public class test_game_manager {
 	}
 
 	[Test]
+	public void test_check_delete () {
+
+	}
+
+	[Test]
 	public void test_delete () {
+
+	}
+
+	[Test]
+	public void test_get_rensa () {
 
 	}
 }

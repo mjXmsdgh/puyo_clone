@@ -135,7 +135,7 @@ public class DrawGame : MonoBehaviour {
 
 	void update_temp (puyopuyo temp_puyo) {
 
-		if (temp_puyo.isValid () == false) {
+		if (temp_puyo.is_valid () == false) {
 			return;
 		}
 

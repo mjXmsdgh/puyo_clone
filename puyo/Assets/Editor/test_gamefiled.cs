@@ -40,6 +40,11 @@ public class test_gamefiled {
 	}
 
 	[Test]
+	public void test_getrensa () {
+
+	}
+
+	[Test]
 	public void test_setgetvalue () {
 		GameField test_target = new GameField ();
 
@@ -127,6 +132,11 @@ public class test_gamefiled {
 		Assert.AreEqual (1, test_target.get_state ());
 		Assert.AreEqual (1, test_target.get_value (0, 0));
 		Assert.AreEqual (0, test_target.get_value (0, 1));
+	}
+
+	[Test]
+	public void test_check_delete () {
+
 	}
 
 	[Test]

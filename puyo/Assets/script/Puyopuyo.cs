@@ -20,11 +20,15 @@ namespace puyopuyo_space {
 			m_isValid = true;
 		}
 
-		public bool isValid () {
+		//---------
+		//valid
+		//---------
+
+		public bool is_valid () {
 			return m_isValid;
 		}
 
-		public void setValid (bool ans) {
+		public void set_valid (bool ans) {
 			m_isValid = ans;
 		}
 

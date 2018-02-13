@@ -41,6 +41,10 @@ namespace game_field {
 			return m_state;
 		}
 
+		//--------------------
+		//rensa
+		//--------------------
+
 		public int get_rensa () {
 			return m_rensa;
 		}
