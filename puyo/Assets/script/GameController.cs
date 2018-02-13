@@ -39,7 +39,7 @@ public class GameController : MonoBehaviour {
 	void Update () {
 
 		//描画
-		m_DrawGame.draw (m_GameManager.get_gamefield (), m_GameManager.get_temp_puyo (), m_GameManager.get_next_puyo (), m_GameManager.get_state ());
+		m_DrawGame.draw (m_GameManager.get_gamefield (), m_GameManager.get_temp_puyo (), m_GameManager.get_next_puyo ());
 
 		//落下
 		if (m_GameManager.get_state () == 1) {
