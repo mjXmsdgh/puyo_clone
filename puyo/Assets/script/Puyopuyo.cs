@@ -99,7 +99,6 @@ namespace puyopuyo_space {
 		//rotate
 		//---------
 		public void rotate (bool isRight) {
-
 			int rot = -1;
 
 			if (isRight == true) {
