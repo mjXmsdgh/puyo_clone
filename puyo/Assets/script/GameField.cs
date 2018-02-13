@@ -44,7 +44,6 @@ namespace game_field {
 		//--------------------
 		//rensa
 		//--------------------
-
 		public int get_rensa () {
 			return m_rensa;
 		}
@@ -52,9 +51,7 @@ namespace game_field {
 		//--------------------
 		//grid
 		//--------------------
-
 		public int get_value (int input_i, int input_j) {
-
 			if (isRange (new Point (input_i, input_j)) == false) {
 				return -99;
 			}
@@ -63,7 +60,6 @@ namespace game_field {
 		}
 
 		public bool set_value (int i, int j, int value) {
-
 			if (isRange (new Point (i, j)) == false) {
 				return false;
 			}
@@ -75,9 +71,7 @@ namespace game_field {
 		//--------------------
 		//collision
 		//--------------------
-
 		public bool check_collision (ref puyopuyo input_puyo) {
-
 			//range
 			bool ans1 = isRange (input_puyo.get_position (0));
 			bool ans2 = isRange (input_puyo.get_position (1));
@@ -99,7 +93,6 @@ namespace game_field {
 		//fix
 		//--------------------
 		public void fix (puyopuyo input_puyo) {
-
 			for (int i = 0; i < 2; i++) {
 				int color = input_puyo.get_color (i);
 				Point pos = input_puyo.get_position (i);
