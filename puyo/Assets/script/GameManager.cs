@@ -13,7 +13,6 @@ namespace game_manager {
 		private puyopuyo m_temp_puyo;
 
 		public void init () {
-
 			//フィールド
 			m_game_field = new GameField ();
 			m_game_field.init ();
@@ -66,7 +65,6 @@ namespace game_manager {
 		}
 
 		public void rotate (bool isRight) {
-
 			//copy
 			puyopuyo prev_puyo = new puyopuyo ();
 			prev_puyo.init ();
