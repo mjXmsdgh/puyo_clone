@@ -101,17 +101,13 @@ namespace game_manager {
 
 		public void fall () {
 			m_game_field.fall ();
-			m_temp_puyo.set_valid (false);
 		}
 
 		public bool check_delete () {
-			m_temp_puyo.set_valid (false);
-
 			return m_game_field.check_delete ();
 		}
 
 		public void delete () {
-			m_temp_puyo.set_valid (false);
 			m_game_field.delete ();
 		}
 

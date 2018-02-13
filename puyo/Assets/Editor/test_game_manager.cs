@@ -16,47 +16,6 @@ public class test_game_manager {
 	}
 
 	[Test]
-	public void test_get_gamefield () {
-		GameManager test_target = new GameManager ();
-		test_target.init ();
-
-		GameField gf = test_target.get_gamefield ();
-		Assert.AreNotEqual (null, gf);
-	}
-
-	[Test]
-	public void test_get_next_puyo () {
-		GameManager test_target = new GameManager ();
-		test_target.init ();
-
-		puyopuyo p = test_target.get_next_puyo ();
-		Assert.AreNotEqual (null, p);
-	}
-
-	[Test]
-	public void test_get_temp_puyo () {
-		GameManager test_target = new GameManager ();
-		test_target.init ();
-
-		puyopuyo p = test_target.get_temp_puyo ();
-		Assert.AreNotEqual (null, p);
-	}
-
-	[Test]
-	public void test_getWidth () {
-		GameManager test_target = new GameManager ();
-		test_target.init ();
-		Assert.AreEqual (6, test_target.getWidth ());
-	}
-
-	[Test]
-	public void test_getHeight () {
-		GameManager test_target = new GameManager ();
-		test_target.init ();
-		Assert.AreEqual (12, test_target.getHeight ());
-	}
-
-	[Test]
 	public void test_move () {
 		GameManager test_target = new GameManager ();
 		test_target.init ();
@@ -150,30 +109,5 @@ public class test_game_manager {
 		Assert.AreEqual (10, test.get_position_y (0));
 		Assert.AreEqual (3, test.get_position_x (1));
 		Assert.AreEqual (11, test.get_position_y (1));
-	}
-
-	[Test]
-	public void test_get_state () {
-
-	}
-
-	[Test]
-	public void test_fall () {
-
-	}
-
-	[Test]
-	public void test_check_delete () {
-
-	}
-
-	[Test]
-	public void test_delete () {
-
-	}
-
-	[Test]
-	public void test_get_rensa () {
-
 	}
 }
