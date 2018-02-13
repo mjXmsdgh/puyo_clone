@@ -61,6 +61,7 @@ namespace game_field {
 
 			return m_Grid[input_i, input_j];
 		}
+
 		public bool set_value (int i, int j, int value) {
 
 			if (isRange (new Point (i, j)) == false) {
@@ -70,6 +71,10 @@ namespace game_field {
 			m_Grid[i, j] = value;
 			return true;
 		}
+
+		//--------------------
+		//collision
+		//--------------------
 
 		public bool check_collision (ref puyopuyo input_puyo) {
 
