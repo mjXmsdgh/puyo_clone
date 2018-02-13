@@ -1,7 +1,7 @@
-﻿using System.Collections;
-using next_field;
+﻿using next_field;
 using NUnit.Framework;
 using puyopuyo_space;
+using System.Collections;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.TestTools;
@@ -26,10 +26,8 @@ public class test_Next {
 
 		//puyo pos
 		for (int i = 0; i < 2; i++) {
-			int pos_x = ret_puyo.get_position_x (i);
-			int pos_y = ret_puyo.get_position_y (i);
-			Assert.AreEqual (0, pos_x);
-			Assert.AreEqual (0, pos_y);
+			Assert.AreEqual (0, ret_puyo.get_position (i).get_x ());
+			Assert.AreEqual (0, ret_puyo.get_position (i).get_y ());
 		}
 	}
 

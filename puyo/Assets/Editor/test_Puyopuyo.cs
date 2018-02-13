@@ -19,11 +19,8 @@ public class test_Puyopuyo {
 
 		//pos
 		for (int i = 0; i < 2; i++) {
-			int x = test_target.get_position_x (i);
-			int y = test_target.get_position_y (i);
-
-			Assert.AreEqual (x, 0);
-			Assert.AreEqual (y, 0);
+			Assert.AreEqual (0, test_target.get_position (i).get_x ());
+			Assert.AreEqual (0, test_target.get_position (i).get_y ());
 		}
 	}
 

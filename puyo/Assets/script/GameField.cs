@@ -102,10 +102,9 @@ namespace game_field {
 
 			for (int i = 0; i < 2; i++) {
 				int color = input_puyo.get_color (i);
-				int pos_x = input_puyo.get_position_x (i);
-				int pos_y = input_puyo.get_position_y (i);
+				Point pos = input_puyo.get_position (i);
 
-				m_Grid[pos_x, pos_y] = color;
+				m_Grid[pos.get_x (), pos.get_y ()] = color;
 			}
 			set_state (1);
 		}

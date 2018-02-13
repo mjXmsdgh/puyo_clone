@@ -1,9 +1,11 @@
 ﻿using game_field;
 using next_field;
+using point_space;
 using puyopuyo_space;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
 public class DrawGame : MonoBehaviour {
 
 	private int m_width = 0;
@@ -143,13 +145,15 @@ public class DrawGame : MonoBehaviour {
 
 		for (int i = 0; i < 2; i++) {
 			int color = temp_puyo.get_color (i);
-			int pos_x = temp_puyo.get_position_x (i);
-			int pos_y = temp_puyo.get_position_y (i);
 
 			if (color == 0) {
 				continue;
 			}
-			m_dislayTemp[i] = Instantiate (m_PrefabPuyo[color - 1], new Vector3 (pos_x, pos_y, 0), new Quaternion (0, 0, 0, 0));
+
+			Point temp_pos = temp_puyo.get_position (i);
+			Vector3 pos = new Vector3 (temp_pos.get_x (), temp_pos.get_y (), 0);
+
+			m_dislayTemp[i] = Instantiate (m_PrefabPuyo[color - 1], pos, new Quaternion (0, 0, 0, 0));
 
 		}
 	}
