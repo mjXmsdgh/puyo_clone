@@ -1,6 +1,12 @@
 # puyo_clone
 パズルゲームを作って、いろんなことを勉強するためのリポジトリ
 
+# ゲーム windwos 64 bit
+以下のURLの右上「すべてダウンロード」
+
+[google driveのここからとってくる](https://drive.google.com/drive/folders/1S7tQohVFKJ8QhF3a-rJ-PyF9JxswBGBD?usp=sharing)
+
+
 # 操作方法
  - Game Startボタンを押して、ゲームを開始。
  - スペースキーで最初のブロックを取得。
