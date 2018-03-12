@@ -1,10 +1,14 @@
 # puyo_clone
 パズルゲームを作って、いろんなことを勉強するためのリポジトリ
 
-# ゲーム windwos 64 bit
-以下のURLの右上「すべてダウンロード」
+# ゲーム本体 (windwos 64 bit)
+以下のURL。
 
 [google driveのここからとってくる](https://drive.google.com/drive/folders/1S7tQohVFKJ8QhF3a-rJ-PyF9JxswBGBD?usp=sharing)
+
+右上「すべてダウンロード」からダウンロード。
+zipを解凍。
+puyo_clone.exeが本体。
 
 
 # 操作方法
